@@ -1,0 +1,60 @@
+<mat-toolbar color="primary">
+  <span class="toolbar-title">Product List</span>
+</mat-toolbar>
+
+<div class="container">
+  <div class="search-filter">
+    <mat-form-field appearance="fill" class="search-field full-width">
+      <mat-label>Search by ID, SKU, or Name</mat-label>
+      <input matInput [(ngModel)]="searchTerm" [matAutocomplete]="auto" (keyup)="onSearch()" />
+      <mat-icon matSuffix>search</mat-icon>
+    </mat-form-field>
+
+    <!-- Autocomplete Suggestions -->
+    <mat-autocomplete #auto="matAutocomplete">
+      <mat-option *ngFor="let suggestion of filteredProducts" [value]="suggestion.title">
+        {{ suggestion.title }}
+      </mat-option>
+    </mat-autocomplete>
+
+    <mat-form-field appearance="fill" class="filter-field">
+      <mat-label>Select Category</mat-label>
+      <mat-select [(ngModel)]="selectedCategory" (selectionChange)="onCategoryChange($event.value)">
+        <mat-option *ngFor="let category of categories" [value]="category">
+          {{ category }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" class="filter-field">
+      <mat-label>Sort by Price</mat-label>
+      <mat-select [(ngModel)]="selectedSortOrder" (selectionChange)="onSortChange($event.value)">
+        <mat-option value="asc">Ascending</mat-option>
+        <mat-option value="desc">Descending</mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+
+  <div class="product-grid">
+    <div *ngFor="let product of products" [routerLink]="['/product', product.id]" matRipple class="product-tile">
+      <div class="product-container">
+        <div class="image-carousel">
+          <button mat-icon-button (click)="prevImage(product); $event.stopPropagation()">
+            <mat-icon>chevron_left</mat-icon>
+          </button>
+
+          <img [src]="product.images[currentImageIndex(product)]" alt="Product Image" />
+
+          <button mat-icon-button (click)="nextImage(product); $event.stopPropagation()">
+            <mat-icon>chevron_right</mat-icon>
+          </button>
+        </div>
+        <div class="product-details">
+          <h3>{{ product.title }}</h3>
+          <p>{{ product.description }}</p>
+          <p>Price: ${{ product.price }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

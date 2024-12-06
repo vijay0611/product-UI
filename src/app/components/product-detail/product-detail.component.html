@@ -1,0 +1,67 @@
+<mat-toolbar class="custom-toolbar" color="primary">
+  <span class="toolbar-title">Product Details</span>
+</mat-toolbar>
+
+<div class="details-container" *ngIf="product">
+  <div class="product-images">
+    <button mat-icon-button (click)="prevImage()">
+      <mat-icon>chevron_left</mat-icon>
+    </button>
+    <img [src]="product.images[currentImageIndex]" alt="Product Image" class="main-image"/>
+    <button mat-icon-button (click)="nextImage()">
+      <mat-icon>chevron_right</mat-icon>
+    </button>
+  </div>
+
+  <div class="details">
+    <h1>{{ product.title }}</h1>
+    <p>{{ product.description }}</p>
+
+    <div class="price-stock">
+      <p class="price">Price: ${{ product.price }} <span class="discount">(-{{ product.discountPercentage }}%)</span></p>
+      <p>Status: <strong>{{ product.availabilityStatus }}</strong></p>
+      <p>Stock: {{ product.stock }} available</p>
+    </div>
+
+    <div class="category-info">
+      <p><strong>Category:</strong> {{ product.category }}</p>
+      <p><strong>SKU:</strong> {{ product.sku }}</p>
+      <p><strong>Brand:</strong> {{ product.brand }}</p>
+    </div>
+
+    <div class="rating-info">
+      <p><strong>Rating:</strong> {{ product.rating }} / 5</p>
+      <mat-icon>star_rate</mat-icon>
+      <mat-icon>star_rate</mat-icon>
+      <mat-icon>star_rate</mat-icon>
+      <mat-icon>star_half</mat-icon>
+      <mat-icon>star_border</mat-icon>
+    </div>
+
+    <div class="reviews">
+      <h3>Customer Reviews</h3>
+      <div *ngFor="let review of product.reviews">
+        <div class="review-item">
+          <p><strong>{{ review.reviewerName }}</strong> (Rating: {{ review.rating }} / 5)</p>
+          <p>{{ review.comment }}</p>
+          <p><small>{{ review.date | date:'short' }}</small></p>
+        </div>
+      </div>
+    </div>
+
+    <div class="additional-info">
+      <p><strong>Weight:</strong> {{ product.weight }} kg</p>
+      <p><strong>Dimensions:</strong> {{ product.dimensions.width }} x {{ product.dimensions.height }} x {{ product.dimensions.depth }} cm</p>
+      <p><strong>Warranty:</strong> {{ product.warrantyInformation }}</p>
+      <p><strong>Shipping Information:</strong> {{ product.shippingInformation }}</p>
+      <p><strong>Return Policy:</strong> {{ product.returnPolicy }}</p>
+    </div>
+
+    <div class="meta-info">
+      <p><strong>Created At:</strong> {{ product.meta.createdAt | date:'short' }}</p>
+      <p><strong>Barcode:</strong> {{ product.meta.barcode }}</p>
+      <p><strong>QR Code:</strong></p>
+      <img [src]="product.meta.qrCode" alt="QR Code" width="100" />
+    </div>
+  </div>
+</div>
