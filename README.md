@@ -18,10 +18,10 @@ A responsive and user-friendly e-commerce application built using Angular, featu
 ## Screenshots
 
 ### Product List Page
-![Product List Page](src\assets\image.png)
+![Product List Page](src/assets/image.png)
 
 ### Product Details Page
-![Product Details Page](src\assets\image1.png)
+![Product Details Page](src/assets/image1.png)
 
 ---
 
